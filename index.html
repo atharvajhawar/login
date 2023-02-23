@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Student Form</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="http://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h2>student enrollment form</h2>
+            <form id="studentForm" method="get">
+                <div class="form-group">
+                    <span><label for="studentID">Roll no:</label> <label id="StudentIdMsg">
+                        </label></span>
+                    <input type="number" class="form-control" onchange="getsturoll" name="rollno" id="sturoll"
+                           placeholder="Enter Roll number" required>
+                </div>
+                <div class="form-group">
+                    <label for="StudentName">Full Name:</label>
+                    <input type="text" class="form-control" id="StudentName"
+                           placeholder="Enter Student Name" name="StudentName">
+                </div>
+                
+                <div class="form-group">
+                    <label for="StudentClass">Class:</label>
+                    <input type="number" class="form-control" id="StudentClass"
+                           placeholder="Enter Class" name="StudentClass">
+                </div>
+                <div class="form-group">
+                    <span><label for="StudentBithdate">Birth date:</label> <label id="empIdMsg">
+                        </label></span>
+                    <input type="text" class="form-control" name="BirthDate" id="BirthDate"
+                           placeholder="Enter Birth date" required>
+                </div>
+                 <div class="form-group">
+                    <span><label for="Studentaddress">Address:</label> <label id="empIdMsg">
+                        </label></span>
+                    <input type="text" class="form-control" name="Address" id="Address"
+                           placeholder="Enter Address" required>
+                </div>
+                 <div class="form-group">
+                    <span><label for="StudentDate">Enrollment Date:</label> <label id="empIdMsg">
+                        </label></span>
+                    <input type="number" class="form-control" name="Enrollmentdate" id="studate"
+                           placeholder="Enter Enrollment Date" required>
+                </div>
+                <input type="button" class="btn btn-primary" id="studentSave" value="Save"
+                        onclick="savedata()" >Save</button>]
+                <input type="button" class="btn btn-primary" id="studentUpdate" value="Update"
+                        onclick="Updatedata()" >Update</button>
+                <input type="button" class="btn btn-primary" id="studentReset" value="Reset"
+                        onclick="Resetdata()" >Reset</button>
+                
+            </form>
+        </div>
+        
+        
+        <script>
+            
+            function validateAndGetFormData() {
+var sturollIdVar = $("#sturoll").val();
+if (sturollIdVar === "") {
+alert("Student information Required Value");
+$("#sturoll").focus();
+return "";
+}
+var StudentNameIDVar = $("#StudentName").val();
+if (StudentNameIDVar === "") {
+alert("Student Name is Required Value");
+$("#StudentName").focus();
+return "";
+}
+var StudentClassIDVar = $("#StudentClass").val();
+if (StudentClassIDVar === "") {
+alert("Student Class is Required Value");
+$("#StudentClass").focus();
+return "";
+}
+var BirthDateIDVar = $("#BirthDate").val();
+if (BirthDateIDVar === "") {
+alert("Birth date is Required Value");
+$("#BirthDate").focus();
+return "";
+}
+var AddressIDVar = $("#Address").val();
+if (AddressIDVar === "") {
+alert("Address is Required Value");
+$("#Address").focus();
+return "";
+}
+var studateIDVar = $("#studate").val();
+if (studateIDVar === "") {
+alert("Employee Email is Required Value");
+$("#studate").focus();
+return "";
+}
+var jsonStrObj = {
+sturoll: sturollIdVar,
+StudentName: StudentNameIDVar,
+StudentClass: StudentClassIDVar,
+BirthDate:BirthDateIDVar,
+Address:AddressIDVar,
+studate:studateIDVar,
+
+
+};
+return JSON.stringify(jsonStrObj);
+}
+
+                  
+        function saveEmployee() {
+var jsonStr = validateAndGetFormData();
+if (jsonStr === "") {
+return;
+}
+var putReqStr = createPUTRequest("90932590|-31949277648456491|90948947",
+jsonStr, "student", "student-Rel");
+alert(putReqStr);
+jQuery.ajaxSetup({async: false});
+var resultObj = executeCommandAtGivenBaseUrl(putReqStr,
+"http://api.login2explore.com:5577", "/api/iml");
+alert(JSON.stringify(resultObj));
+jQuery.ajaxSetup({async: true});
+                    resetForm();
+                }
+
+            
+            
+            
+            
+        </script>
+        
+    </body>
+</html>
